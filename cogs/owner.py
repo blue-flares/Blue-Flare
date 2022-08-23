@@ -1,6 +1,8 @@
 import discord 
 from discord.ext import commands
 
+from utility import embed
+
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -25,7 +27,7 @@ class Owner(commands.Cog):
             if user.id in data['editors']:
                 return await ctx.send(f'<@{user.id}> is already a editor.')
             else:
-                data['editors'].insert(user.id)
+                data['editors'].append(user.id)
                 self.bot.mongo.mongo.settings.update_one({'_id': 0}, {'$set': data}, upsert = True)
         else:
             data = {'_id': 0, 'editors': [user.id]}

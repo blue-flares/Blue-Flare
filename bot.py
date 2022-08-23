@@ -43,7 +43,10 @@ class Bot(commands.Bot):
 bot = Bot() 
 
 cog_extension = [
-  'cogs.mongo'
+  'cogs.mongo',
+  'cogs.error',
+  'cogs.owner',
+  'cogs.username'
 ]
 
 for cog in cog_extension:

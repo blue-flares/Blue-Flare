@@ -24,12 +24,12 @@ class UsernameButton(discord.ui.View):
                 data['username'] = self.username
             else:
                 data = self.ctx.bot.mongo.mongo.datastructure
-                data['username'] = username
+                data['username'] = self.username
             await self.ctx.bot.mongo.update(self.user.id, data)
             e = embed.data_update(self.ctx, 'Successful Update', discord.Color.green())
             e.description = 'The following data has been updated.'
             e.add_field(name = 'User', value = f'<@{self.user.id}>', inline = False)
-            e.add_field(name = 'Value', value = username.tile(), inline = False)
+            e.add_field(name = 'Value', value = self.username.title(), inline = False)
             e.add_field(name = 'Responsible Editor', value = f'<@{self.ctx.author.id}>', inline = False)
 
             await interaction.response.edit_message(embed = e, view = None)
@@ -41,7 +41,7 @@ class UsernameButton(discord.ui.View):
             else:
                 data = self.ctx.bot.mongo.mongo.datastructure
             await self.ctx.bot.mongo.update(self.user.id, data)
-            e = embed.data_updat(self.ctx, 'Successful Update',, discord.Color.green())
+            e = embed.data_update(self.ctx, 'Successful Update', discord.Color.green())
             e.description = 'Following user\'s data have been reseted.'
             e.add_field(name = 'User', value = f'<@{self.user.id}>', inline = False)
             e.add_field(name = 'Responsible Editor', value = f'<@{self.ctx.author.id}>', inline = False)
@@ -50,7 +50,7 @@ class UsernameButton(discord.ui.View):
 
     @discord.ui.button(label = 'Cancel', style = discord.ButtonStyle.danger)
     async def cancel_button_callback(self, button, interaction):
-        await interaction.response.edit_message(content = f'<@{self.ctx.author.id}> process cancelled.', view = None)
+        await interaction.response.edit_message(content = f'<@{self.ctx.author.id}> process cancelled.', embed = None, view = None)
 
     async def interaction_check(self, interaction):
         if interaction.user.id != self.ctx.author.id:
