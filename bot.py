@@ -35,6 +35,7 @@ class Bot(commands.Bot):
           color = discord.Color.random()
         )
         await message.channel.send(embed = embed)
+      await bot.process_commands(message)
 
     @property
     def mongo(self):
