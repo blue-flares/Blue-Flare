@@ -7,7 +7,10 @@ class Bot(commands.Bot):
     def __init__(self):
         super().__init__(
           command_prefix = commands.when_mentioned_or(
-            "!"
+            "bf",
+            "BF",
+            "Bf",
+            "bF"
           ), 
           intents = discord.Intents.all(), 
           strip_after_prefix = True,
