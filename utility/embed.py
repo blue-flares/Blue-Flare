@@ -1,12 +1,10 @@
 import discord
 
-from datetime import datetime
-
 def data_update(ctx, title, color):
     e = discord.Embed()
     e.title = title
     e.color = color
-    e.timestamp = datetime.now()
+    e.timestamp = discord.utils.utcnow()
     e.set_footer(text = f"{ctx.author.name}#{ctx.author.discriminator}", icon_url = ctx.author.display_avatar)
 
     return e
