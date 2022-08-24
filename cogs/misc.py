@@ -37,7 +37,7 @@ class Misc(commands.Cog):
             title = 'Editors',
             description = f'{mentions}',
             color = discord.Color.blue(),
-            timestamp = discord.Color.blue
+            timestamp = discord.utils.utcnow()
         )
         e.set_footer(text = 'Ask them to changed any incorrect data.')
 
