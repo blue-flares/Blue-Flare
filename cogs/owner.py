@@ -1,12 +1,14 @@
 import discord 
 from discord.ext import commands
 
+from utility import embed
+
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.is_owner()
-    @commands.group(invoke_without_command = True, aliases = ('o'))
+    @commands.group(invoke_without_command = True, aliases = ('o',))
     async def owner(self, ctx):
         e = embed.error_embed(ctx, 'Please provide a subcommand.')
 
