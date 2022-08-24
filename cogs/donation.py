@@ -11,14 +11,14 @@ class Donation(commands.Cog):
         self.bot = bot
 
     @checks.is_editor()
-    @commands.group(invoke_without_command = True, aliases = ('do'))
+    @commands.group(invoke_without_command = True, aliases = ('do',))
     async def donation(self, ctx):
         """ Used to change the donation values for many user. """
         e = embed.error_embed(ctx, 'Please provide a subcommand. Available subcommands are: \n1.Add\n2.Remove\n3.Set\n4.Reset')
 
         await ctx.send(embed = e)
 
-    @donation.command(aliases = ('a'))
+    @donation.command(aliases = ('a',))
     async def add(self, ctx, members: commands.Greedy[discord.Member] = None, donation: int = None):
         """ Used to add donation to specified users. """
         if not members:
@@ -38,7 +38,7 @@ class Donation(commands.Cog):
 
         await ctx.send(embed = e, view = DonationButton(ctx, user, donation, 'add', e))
 
-    @donation.command(aliases = ('r'))
+    @donation.command(aliases = ('r',))
     async def remove(self, ctx, members: commands.Greedy[discord.Member] = None, donation: int = None):
         """ Used to remove donation from specified users. """
         if not members:
@@ -58,7 +58,7 @@ class Donation(commands.Cog):
 
         await ctx.send(embed = e, view = DonationButton(ctx, user, donation, 'remove', e))
 
-    @donation.command(aliases = ('s'))
+    @donation.command(aliases = ('s',))
     async def set(self, ctx, members: commands.Greedy[discord.Member] = None, donation: int = None):
         """ Used to set donation as specified for specified users.  """
         if not members:
@@ -78,7 +78,7 @@ class Donation(commands.Cog):
 
         await ctx.send(embed = e, view = DonationButton(ctx, user, donation, 'set', e))
 
-    @donation.command(aliases = ('rs'))
+    @donation.command(aliases = ('rs',))
     async def reset(self, ctx, members: commands.Greedy[discord.Member] = None):
         """ Used to reset the donation to 0 for specifies members. """
         if not members:
