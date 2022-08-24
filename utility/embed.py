@@ -14,7 +14,7 @@ def error_embed(ctx, description):
             title = 'Error',
             description = description,
             color = discord.Color.red(),
-            timestamp = datetime.now()
+            timestamp = discord.utils.utcnow()
         )
     e.set_footer(text = f"{ctx.author.name}#{ctx.author.discriminator}", icon_url = ctx.author.display_avatar)
     
