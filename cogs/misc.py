@@ -5,7 +5,7 @@ import asyncio
 
 class Misc(commands.Cog):
     def __init__(self, bot):
-        self.bot
+        self.bot = bot
 
     @commands.command()
     async def profile(self, ctx, user: discord.Member = None):
