@@ -1,11 +1,16 @@
 import discord 
 from discord.ext import commands
 
-from utility import embed
-
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.is_owner()
+    @commands.group(invoke_without_command = True, aliases = ('o'))
+    async def owner(self, ctx):
+        e = embed.error_embed(ctx, 'Please provide a subcommand.')
+
+        return await ctx.send(embed = e)
 
     @commands.is_owner()
     @commands.group(invoke_without_command = True, aliases = ('ad',))
@@ -27,7 +32,7 @@ class Owner(commands.Cog):
             if user.id in data['editors']:
                 return await ctx.send(f'<@{user.id}> is already a editor.')
             else:
-                data['editors'].append(user.id)
+                data['editors'].insert(user.id)
                 self.bot.mongo.mongo.settings.update_one({'_id': 0}, {'$set': data}, upsert = True)
         else:
             data = {'_id': 0, 'editors': [user.id]}

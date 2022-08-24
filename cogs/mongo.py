@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 
-import config
-
 import asyncio 
 import pymongo
 
@@ -12,7 +10,7 @@ class MongoClient:
         self.db = self.client['BlueFlare']
         self.col = self.db['Main']
         self.settings = self.db['Setting']
-        self.datastructure = {'username': 'Not Set', 'win': 0, 'lose': 0, 'draw': 0}
+        self.datastructure = {'username': 'Not Set', 'donation': 0, 'win': 0, 'lose': 0, 'draw': 0}
 
 class Mongo(commands.Cog):
     def __init__(self, bot):

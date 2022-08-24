@@ -33,7 +33,7 @@ class Username(commands.Cog):
         e.add_field(name = 'Value', value = username.title(), inline = False)
         e.add_field(name = 'Responsible Editor', value = f'<@{ctx.author.id}>', inline = False)
         
-        await ctx.send(embed = e, view = UsernameButton(ctx, user, username, 'set'))
+        await ctx.send(embed = e, view = UsernameButton(ctx, user, username, 'set', e))
 
     @checks.is_editor()
     @username.command(aliases = ('rs',))
@@ -47,7 +47,7 @@ class Username(commands.Cog):
         e.add_field(name = 'User', value = f'<@{user.id}>', inline = False)
         e.add_field(name = 'Responsible Editor', value = f'<@{ctx.author.id}>', inline = False)
 
-        await ctx.send(embed = e, view = UsernameButton(ctx, user, 'None', 'reset'))
+        await ctx.send(embed = e, view = UsernameButton(ctx, user, 'None', 'reset', e))
 
 def setup(bot):
     bot.add_cog(Username(bot))
