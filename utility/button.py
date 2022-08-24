@@ -42,6 +42,7 @@ class UsernameButton(discord.ui.View):
             await self.ctx.bot.mongo.update(self.user.id, data)
             self.embed.title = 'Successful Data Update'
             self.embed.description = 'Following user\'s data have been reseted.'
+            self.embed.color = discord.Color.green()
             
             await interaction.response.edit_message(embed = self.embed, view = None)
 
