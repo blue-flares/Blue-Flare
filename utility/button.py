@@ -119,5 +119,5 @@ class DonationButton(discord.ui.View):
 
     async def interaction_check(self, interaction):
         if interaction.user.id != self.ctx.author.id:
-            return await interaction.response.send_message(content = 'You are not allowed to click on the button.'. ephemeral = True)
+            return await interaction.response.send_message(content = 'You are not allowed to click on the button.', ephemeral = True)
         return True
