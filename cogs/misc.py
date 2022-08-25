@@ -23,7 +23,7 @@ class Misc(commands.Cog):
             color = discord.Color.blue()
         )
         e.add_field(name = 'Battle', value = f"Win: {data['win']}\nLose: {data['lose']}\nDraw: {data['draw']}")
-        e.set_thumbnail(user.display_avatar)
+        e.set_thumbnail(url = user.display_avatar)
 
         await ctx.send(embed = e)
 
