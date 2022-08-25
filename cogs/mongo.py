@@ -18,12 +18,15 @@ class Mongo(commands.Cog):
         self.bot = bot
         self.mongo = MongoClient()
 
+    async def insert(self, data: dict):
+        data = self.mongo.col.insert_one(data)
+        return data
 
     async def fetch(self, _id):
         data = self.mongo.col.find_one({'_id': _id})
         return data
 
-    async def update(self, _id, data:dict):
+    async def update(self, _id, data: dict):
         data = self.mongo.col.update_one({'_id': _id}, {'$set': data}, upsert = True)
         return data 
 
