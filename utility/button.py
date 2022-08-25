@@ -1,12 +1,9 @@
 import discord
 
-from cogs.mongo import MongoClient
 from . import embed
 
 import os
 import asyncio
-
-mogno = MongoClient()
 
 class UsernameButton(discord.ui.View):
     def __init__(self, ctx, user, username, mode, embed):
@@ -71,18 +68,18 @@ class DonationButton(discord.ui.View):
                 data = await self.ctx.bot.mongo.fetch(user)
                 if data:
                     data['donation'] += self.data
-                    await self.ctx.bot.mongo.update(a, data)
+                    await self.ctx.bot.mongo.update(user, data)
                 else:
                     data = self.ctx.bot.mongo.mongo.datastructure
                     data['donation'] = self.data
-                    await self.ctx.bot.mongo.update(a, data)
+                    await self.ctx.bot.mongo.update(user, data)
         
         elif self.mode == 'remove':
             for user in self.users:
                 data = await self.ctx.bot.mongo.fetch(user)
                 if data:
                     data['donation'] -= self.data
-                    await self.ctx.bot.mongo.update(a, data)
+                    await self.ctx.bot.mongo.update(user, data)
                 else:
                     await self.ctx.send(f'<@{user}> have no data entry in the database.')
         
@@ -91,24 +88,25 @@ class DonationButton(discord.ui.View):
                 data = await self.ctx.bot.mongo.fetch(user)
                 if data:
                     data['donation'] = self.data
-                    await self.ctx.bot.mongo.update(a, data)
+                    await self.ctx.bot.mongo.update(user, data)
                 else:
                     data = self.ctx.mongo.mongo.datastructure
                     data['donation'] = self.data
-                    await self.ctx.bot.mongo.update(a, data)
+                    await self.ctx.bot.mongo.update(user, data)
 
         elif self.mode == 'reset':
             for user in self.users:
                 data = await self.ctx.bot.mongo.fetch(user)
                 if data:
                     data['donation'] = 0
-                    await self.ctx.bot.mongo.update(a, data)
+                    await self.ctx.bot.mongo.update(user, data)
                 else:
                     await self.ctx.send(f'<@{user}> have no entry in the database.')
         
         else:
             return
-        
+
+        self.embed.color = discord.Color.green()
         self.embed.title = 'Successful Data Update'
         self.embed.description = 'The following things have been updated.'
 
