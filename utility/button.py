@@ -22,7 +22,7 @@ class UsernameButton(discord.ui.View):
                 data['username'] = self.username
             else:
                 data = self.ctx.bot.mongo.mongo.datastructure
-                data['username'] = username
+                data['username'] = self.username
             await self.ctx.bot.mongo.update(self.user.id, data)
             self.embed.title = 'Successful Data Update'
             self.embed.description = 'The following data has been updated.'
