@@ -2,4 +2,6 @@
 A helper bot for Blue Flare Community.  
 
 # Contribution 
-I Will Add This Later 
+I don't really object contributing to this project but just follow the code style. 
+
+I like the style clear and simple.
