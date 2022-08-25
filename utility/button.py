@@ -90,7 +90,7 @@ class DonationButton(discord.ui.View):
                     data['donation'] = self.data
                     await self.ctx.bot.mongo.update(user, data)
                 else:
-                    data = self.ctx.mongo.mongo.datastructure
+                    data = self.ctx.bot.mongo.mongo.datastructure
                     data['donation'] = self.data
                     await self.ctx.bot.mongo.update(user, data)
 
