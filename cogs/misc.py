@@ -7,11 +7,11 @@ class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(aliases = ('p',))
     async def profile(self, ctx, user: discord.Member = None):
         """ Show the profile of a user. """
         user = user or ctx.author
-        data = self.bot.mongo.fetch(user.id)
+        data = await self.bot.mongo.fetch(user.id)
 
         if not data:
             return await ctx.send(f'<@{user.id}> has no entry in the database.')
