@@ -9,7 +9,6 @@ I like the style clear and simple.
 # To Do
 Need to add following things. 
 
-- Battle
 - Owner
 - Achievement
 - Leaderboard
