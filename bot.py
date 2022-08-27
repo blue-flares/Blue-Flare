@@ -37,7 +37,7 @@ class Bot(commands.Bot):
         embed = discord.Embed(
           title = 'Blue Flare Bot',
           description = f'Prefixes : <@{self.user.id}>, bf\n Developer : <@724447396066754643>',
-          color = discord.Color.random()
+          color = discord.Color.blue()
         )
         await message.channel.send(embed = embed)
       await bot.process_commands(message)
