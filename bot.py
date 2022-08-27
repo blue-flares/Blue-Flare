@@ -27,7 +27,7 @@ class Bot(commands.Bot):
     async def on_ready(self):
         async with aiohttp.ClientSession() as session:
             webhook = discord.Webhook.from_url(CONFIG.WEBHOOK, session=session)
-            await webhook.send("Blue Flare Online.")
+            await webhook.send('Blue Flare Online.', user name = 'Blue Flare')
         print(f"Logged in as {self.user.name} with id {self.user.id}\nVersion {discord.__version__}")
 
     async def on_message(self, message):
@@ -54,7 +54,8 @@ cog_extension = [
   'cogs.error',
   'cogs.misc',
   'cogs.owner',
-  'cogs.username'
+  'cogs.username', 
+  'cogs.battle'
 ]
 
 for cog in cog_extension:
