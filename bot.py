@@ -3,16 +3,14 @@ from discord.ext import commands
 
 import config
 
+import os
 import aiohttp
 
 class Bot(commands.Bot):
     def __init__(self):
         super().__init__(
           command_prefix = commands.when_mentioned_or(
-            "bf",
-            "BF",
-            "Bf",
-            "bF"
+            "!"
           ), 
           intents = discord.Intents.all(), 
           strip_after_prefix = True,
@@ -25,9 +23,11 @@ class Bot(commands.Bot):
         )
         
     async def on_ready(self):
-        async with aiohttp.ClientSession() as session:
-            webhook = discord.Webhook.from_url(CONFIG.WEBHOOK, session=session)
-            await webhook.send('Blue Flare Online.', username = 'Blue Flare')
+        #async with aiohttp.ClientSession() as session:
+            #webhook = discord.Webhook.from_url(os.environ["webhook"], session=session)
+            #await webhook.send('Hello World', username='Foo')
+        channel = bot.get_channel(1011670689440337950)
+        await channel.send('Online!')
         print(f"Logged in as {self.user.name} with id {self.user.id}\nVersion {discord.__version__}")
 
     async def on_message(self, message):
@@ -48,17 +48,17 @@ class Bot(commands.Bot):
 
 bot = Bot() 
 
-cog_extension = [
-  'cogs.mongo',
-  'cogs.donation',
-  'cogs.error',
-  'cogs.misc',
-  'cogs.owner',
-  'cogs.username', 
-  'cogs.battle'
-]
+# cog_extension = [
+#   'cogs.mongo',
+#   'cogs.donation',
+#   'cogs.error',
+#   'cogs.misc',
+#   'cogs.owner',
+#   'cogs.username'
+# ]
 
-for cog in cog_extension:
-  bot.load_extension(cog)
+for file in os.listdir("./cogs"):
+  if file.endswith('.py'):
+    bot.load_extension(f'cogs.{file[:-3]}')
 
 bot.run(config.TOKEN)
