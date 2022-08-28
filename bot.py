@@ -26,7 +26,7 @@ class Bot(commands.Bot):
         
     async def on_ready(self):
         async with aiohttp.ClientSession() as session:
-            webhook = discord.Webhook.from_url(CONFIG.WEBHOOK, session=session)
+            webhook = discord.Webhook.from_url(config.WEBHOOK, session=session)
             await webhook.send('Blue Flare Online.', username = 'Blue Flare')
         print(f"Logged in as {self.user.name} with id {self.user.id}\nVersion {discord.__version__}")
 
