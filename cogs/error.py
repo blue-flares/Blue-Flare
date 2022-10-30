@@ -24,10 +24,39 @@ class Error(commands.Cog):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             e = discord.Embed(
                 title = 'Error Occured',
-                description = f'```\nType: {type(error)}\nError: {error}\nTraceback: {error.__traceback__}```',
-                color = discord.Color.red()
+                # description = f'Command: \n```\n{ctx.command}```',
+                color = discord.Color.red(),
+                timestamp = discord.utils.utcnow()
             )
+            """
+            e.add_field(
+                name = 'Type',
+                value = f'```\n{type(error)}```',
+                inline = False
+            )
+            e.add_field(
+                name = 'Error',
+                value = f'```\n{error}```',
+                inline = False
+            )
+            e.add_field(
+                name = 'Traceback',
+                value = f'```\n{error.__traceback__}```',
+                inline = False
+            )
+            e.add_field(
+                name = 'File',
+                value = f'```\n{sys.stderr}```',
+                inline = False
+            )"""
+        
+            etype = type(error)
+            trace = error.__traceback__
+            lines = traceback.format_exception(etype, error, trace)
+            n_err = ''.join(lines)
+            e.description = n_err
+            
             await ctx.send(embed = e)
 
-def setup(bot):
-    bot.add_cog(Error(bot))
+async def setup(bot):
+    await bot.add_cog(Error(bot))

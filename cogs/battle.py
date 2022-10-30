@@ -148,5 +148,5 @@ class Battle(commands.Cog):
 
         await ctx.send(embed = e, view = BattleButton(ctx, user, 0, 'reset', e, result))
 
-def setup(bot):
-    bot.add_cog(Battle(bot))
+async def setup(bot):
+    await bot.add_cog(Battle(bot))

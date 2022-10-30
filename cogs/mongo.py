@@ -11,10 +11,11 @@ class MongoClient:
         self.db = self.client['BlueFlare']
         self.col = self.db['Main']
         self.settings = self.db['Setting']
-        self.datastructure = {'username': 'Not Set', 'donation': 0, 'win': 0, 'lose': 0, 'draw': 0}
+        self.datastructure = {'username': 'Not Set', 'donation': 0, 'win': 0, 'lose': 0, 'draw': 0, 'chat': 0}
 
-class Mongo(commands.Cog):
+class Mongo(commands.Cog, MongoClient):
     def __init__(self, bot):
+        super().__init__()
         self.bot = bot
         self.mongo = MongoClient()
 
@@ -34,5 +35,5 @@ class Mongo(commands.Cog):
         data = self.mongo.col.delete_one({'_id': _id})
         return data
 
-def setup(bot):
-    bot.add_cog(Mongo(bot))
+async def setup(bot):
+    await bot.add_cog(Mongo(bot))

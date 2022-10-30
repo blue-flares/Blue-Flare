@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 
-import asyncio
-
 class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -23,6 +21,7 @@ class Misc(commands.Cog):
             color = discord.Color.blue()
         )
         e.add_field(name = 'Battle', value = f"Win: {data['win']}\nLose: {data['lose']}\nDraw: {data['draw']}")
+        e.add_field(name = 'Chat', value = f"{data['chat'] if data.get('chat', None) else 0}")
         e.set_thumbnail(url = user.display_avatar)
 
         await ctx.send(embed = e)
@@ -43,5 +42,5 @@ class Misc(commands.Cog):
 
         await ctx.send(embed = e)
 
-def setup(bot):
-    bot.add_cog(Misc(bot))
+async def setup(bot):
+    await bot.add_cog(Misc(bot))

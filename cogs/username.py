@@ -49,5 +49,5 @@ class Username(commands.Cog):
 
         await ctx.send(embed = e, view = UsernameButton(ctx, user, 'None', 'reset', e))
 
-def setup(bot):
-    bot.add_cog(Username(bot))
+async def setup(bot):
+    await bot.add_cog(Username(bot))
