@@ -48,11 +48,10 @@ class BlueFlare(commands.Bot):
     async def setup_hook(self):
         for cog in cog_extension:
             await self.load_extension(cog)
-            """
-            try:
-                await self.load_extension(cog)
-            except:
-                print(f'Failed to load extension: {cog}')"""
+            # try:
+            #     await self.load_extension(cog)
+            # except:
+            #     print(f'Failed to load extension: {cog}')
 
         async with aiohttp.ClientSession() as session:
             webhook = discord.Webhook.from_url(config.WEBHOOK, session=session)
