@@ -1,12 +1,12 @@
-import discord
-from discord.ext import commands
-
-import config 
-
-import aiohttp
 import datetime
 import contextlib
 import asyncio
+
+import aiohttp
+import discord
+from discord.ext import commands
+
+import config
 
 cog_extension = [
     'jishaku',
@@ -15,23 +15,24 @@ cog_extension = [
     'cogs.error',
     'cogs.misc',
     'cogs.owner',
-    'cogs.username', 
-    'cogs.battle', 
+    'cogs.username',
+    'cogs.battle',
     'cogs.chat',
     'cogs.wtp',
     'cogs.leaderboard'
 ]
 
 class BlueFlare(commands.Bot):
+    """ BlueFlare Bot class """
     def __init__(self):
         super().__init__(
           command_prefix = commands.when_mentioned_or(
             "bf",
             "BF",
             "Bf",
-            "bF", 
+            "bF",
             "!"
-          ), 
+          ),
           intents = discord.Intents.all(), 
           strip_after_prefix = True,
           owner_ids = {
@@ -41,41 +42,40 @@ class BlueFlare(commands.Bot):
           self_bot = False,
           allowed_mentions = discord.AllowedMentions(roles=False, everyone=False, users=True)
         )
-        
+
     async def on_ready(self):
         print(f"Logged in {self.user.name} (ID {self.user.id})\nVersion {discord.__version__}")
 
     async def setup_hook(self):
         for cog in cog_extension:
-            await self.load_extension(cog)
-            # try:
-            #     await self.load_extension(cog)
-            # except:
-            #     print(f'Failed to load extension: {cog}')
+            try:
+                await self.load_extension(cog)
+            except:
+                print(f'Failed to load extension: {cog}')
 
-        async with aiohttp.ClientSession() as session:
-            webhook = discord.Webhook.from_url(config.WEBHOOK, session=session)
-            await webhook.send('Blue Flare Online.', username = 'Blue Flare')
+        # async with aiohttp.ClientSession() as session:
+        #     webhook = discord.Webhook.from_url(config.WEBHOOK, session=session)
+        #     await webhook.send('Blue Flare Online.', username = 'Blue Flare')
 
     async def on_message(self, message):
-      if message.author.bot:
-        return 
-      if message.content == f'<@{self.user.id}>':
-        embed = discord.Embed(
-          title = 'Blue Flare Bot',
-          description = f'Prefixes : <@{self.user.id}>, bf\n Developer : <@724447396066754643>',
-          color = discord.Color.blue(),
-          timestamp = discord.utils.utcnow()
-        )
-        await message.channel.send(embed = embed)
-      await self.process_commands(message)
-    
+        if message.author.bot:
+            return 
+        if message.content == f'<@{self.user.id}>':
+            embed = discord.Embed(
+                title = 'Blue Flare Bot',
+                description = f'Prefixes : <@{self.user.id}>, bf\n Developer : <@724447396066754643>',
+                color = discord.Color.blue(),
+                timestamp = discord.utils.utcnow()
+            )
+            await message.channel.send(embed = embed)
+        await self.process_commands(message)
+
     async def on_message_edit(self, before, after):
-      if after.author.id in self.owner_ids:
-        await self.process_commands(after)
-      else:
-        return
-    
+        if after.author.id in self.owner_ids:
+            await self.process_commands(after)
+        else:
+            return
+
     async def start(self):
         await super().start(config.TOKEN, reconnect = True)
 
@@ -146,7 +146,7 @@ class MyHelp(commands.HelpCommand):
             embed.add_field(name="Category", value=cog.qualified_name)
 
         can_run = "No"
-       
+
         with contextlib.suppress(commands.CommandError):
             if await command.can_run(self.context):
                 can_run = "Yes"
@@ -182,6 +182,5 @@ class MyHelp(commands.HelpCommand):
         await self.send_help_embed(f'{title} Category', cog.description, cog.get_commands())
 
 bot.help_command = MyHelp()
-
 
 asyncio.run(bot.start())
