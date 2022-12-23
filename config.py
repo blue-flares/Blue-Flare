@@ -1,5 +1,7 @@
-import os 
+import os
+from dotenv import load_dotenv
 
-MAIN = os.environ['MONGO_URI']
-TOKEN = os.environ['TOKEN']
-WEBHOOK = os.environ['WEBHOOK']
+load_dotenv()
+
+MAIN = os.getenv('MONGO_URI')
+TOKEN = os.getenv('TOKEN')

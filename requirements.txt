@@ -2,3 +2,6 @@ discord.py
 jishaku
 pymongo[srv] 
 dnspython
+aiohttp
+jishaku
+dotenv

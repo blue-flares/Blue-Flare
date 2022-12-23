@@ -29,8 +29,7 @@ class BlueFlare(commands.Bot):
             "bf",
             "BF",
             "Bf",
-            "bF", 
-            "!"
+            "bF"
           ), 
           intents = discord.Intents.all(), 
           strip_after_prefix = True,
